@@ -30,4 +30,10 @@ public class Game {
         int b = numberOfCorrectNumber - numberOfCorrectPosition;
         return String.format("%dA%dB", numberOfCorrectPosition, b);
     }
+
+    public String checkResult(int[] guess) {
+        int numberOfCorrectNumber = this.getNumberOfCorrectNumber(guess);
+        int numberOfCorrectPosition = this.getNumberOfCorrectPosition(guess);
+        return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
+    }
 }
