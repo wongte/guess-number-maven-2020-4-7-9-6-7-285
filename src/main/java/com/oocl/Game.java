@@ -52,7 +52,7 @@ public class Game {
 
     private void validateRawInputFormat(String rawInput) throws Exception {
         if (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
-            throw new Exception("Wrong Input，Input again");
+            throw new InvalidInputException();
         }
     }
 
@@ -69,7 +69,7 @@ public class Game {
         for (int sourceIndex = 0; sourceIndex < guess.length; sourceIndex++) {
             for (int targetIndex = sourceIndex + 1; targetIndex < guess.length; targetIndex++) {
                 if (guess[sourceIndex] == guess[targetIndex]) {
-                    throw new Exception("Wrong Input，Input again");
+                    throw new InvalidInputException();
                 }
             }
         }

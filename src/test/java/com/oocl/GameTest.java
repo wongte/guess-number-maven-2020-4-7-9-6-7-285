@@ -56,7 +56,7 @@ public class GameTest {
     public void test_validate_raw_input_format_with_incorrect_format() {
         Game game = new Game();
         String rawInput = "1 2";
-        String expectedErrorMessage = "Wrong Input，Input again";
+        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
 
         String errorMessage = null;
         try {
@@ -85,7 +85,7 @@ public class GameTest {
         Game game = new Game();
         int[] duplicatedArray = {1, 2, 2, 4};
         String uniqueGuess = "1 2 2 4";
-        String expectedErrorMessage = "Wrong Input，Input again";
+        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
         String errorMessage = null;
         try {
             game.validateAndConvertIntgerArray(uniqueGuess);
