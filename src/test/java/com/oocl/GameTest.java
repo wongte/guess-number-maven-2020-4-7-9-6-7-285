@@ -51,7 +51,7 @@ public class GameTest {
     }
 
     @Test
-    public void test_validate_raw_input_format_with_duplicate_numbers() {
+    public void test_validate_raw_input_format_with_incorrect_format() {
         Game game = new Game();
         String rawInput = "1 2";
         String expectedErrorMessage = "Wrong Input，Input again";
