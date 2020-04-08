@@ -129,14 +129,17 @@ public class Game {
     }
 
     public void startGame() {
+        String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
+        boolean isVictory = false;
         this.initializeGameData();
         gameIO.displayResultToConsole("Start Game");
-        while (!this.isGameOver()) {
+        while (!isVictory && !this.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = this.validateAndConvertIntgerArray(inputFromConsole);
                 String result = this.checkResult(guess);
                 gameIO.displayResultToConsole(result);
+                isVictory = result.equals(victoryResult);
             } catch (Exception e) {
                 gameIO.displayResultToConsole(e.getMessage());
             }
