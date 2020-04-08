@@ -1,15 +1,13 @@
 package com.oocl;
 
+import java.util.*;
+
 public class Game {
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
 
     private int[] answer = new int[LENGTH_OF_GAME];
     private int remainingRound;
-
-    public Game() {
-        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
-    }
 
     public void setAnswer(int[] answer) {
         this.answer = answer;
@@ -83,5 +81,27 @@ public class Game {
 
     public void setRemainingRound(int remainingRound) {
         this.remainingRound = remainingRound;
+    }
+
+    private void generateAnswer() {
+        List<Integer> randomNumbers = new ArrayList<>();
+        while (randomNumbers.size() < LENGTH_OF_GAME) {
+            int generatedNumber = new Random().nextInt(10);
+            if (!randomNumbers.contains(generatedNumber)) {
+                randomNumbers.add(generatedNumber);
+            }
+        }
+        for (int index = 0; index < randomNumbers.size(); index++) {
+            this.answer[index] = randomNumbers.get(index);
+        }
+    }
+
+    public void startGame() {
+        this.generateAnswer();
+        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
+    }
+
+    public int getRemainingRound() {
+        return remainingRound;
     }
 }

@@ -121,5 +121,12 @@ public class GameTest {
         Assert.assertFalse(result);
     }
 
+    @Test
+    public void test_start_game() {
+        Game game = new Game();
+        game.startGame();
+        Assert.assertEquals(Game.NUMBER_OF_TOTAL_ROUND, game.getRemainingRound());
+    }
+
 
 }
