@@ -2,6 +2,7 @@ package com.oocl;
 
 public class Game {
     private int[] answer = new int[4];
+
     public void setAnswer(int[] answer) {
         this.answer = answer;
     }
@@ -36,7 +37,7 @@ public class Game {
     }
 
     public void validateRawInputFormat(String rawInput) throws Exception {
-        if  (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
+        if (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
             throw new Exception("Wrong Input，Input again");
         }
     }
@@ -48,5 +49,16 @@ public class Game {
             integerArray[index] = Integer.parseInt(stringArray[index]);
         }
         return integerArray;
+    }
+
+    public void validateUniqueNumberInGuess(int[] guess) throws Exception {
+        for (int sourceIndex = 0; sourceIndex < guess.length; sourceIndex++) {
+            for (int targetIndex = sourceIndex + 1; targetIndex < guess.length; targetIndex++) {
+                if (guess[sourceIndex] == guess[targetIndex]) {
+                    throw new Exception("Wrong Input，Input again");
+                }
+            }
+        }
+
     }
 }

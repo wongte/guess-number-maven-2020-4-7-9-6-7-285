@@ -66,11 +66,29 @@ public class GameTest {
     }
 
     @Test
-    public void test_convert_to_integer_array() {
+    public void test_validate_unique_number_in_guess_with_unique_guess() {
         Game game = new Game();
-        String rawInput = "1 2 3 4";
-        int[] expectedArray = {1, 2, 3, 4};
-        int[] result = game.convertToIntegerArray(rawInput);
-        Assert.assertArrayEquals(expectedArray, result);
+        int[] duplicatedArray = {1, 2, 3, 4};
+        String errorMessage = null;
+        try {
+            game.validateUniqueNumberInGuess(duplicatedArray);
+        } catch (Exception exception) {
+            errorMessage = exception.getMessage();
+        }
+        Assert.assertNull(errorMessage);
+    }
+
+    @Test
+    public void test_validate_unique_number_in_guess_with_duplicated_guess() {
+        Game game = new Game();
+        int[] duplicatedArray = {1, 2, 2, 4};
+        String expectedErrorMessage = "Wrong Input，Input again";
+        String errorMessage = null;
+        try {
+            game.validateUniqueNumberInGuess(duplicatedArray);
+        } catch (Exception exception) {
+            errorMessage = exception.getMessage();
+        }
+        Assert.assertEquals(expectedErrorMessage, errorMessage);
     }
 }
