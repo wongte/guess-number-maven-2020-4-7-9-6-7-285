@@ -27,4 +27,28 @@ public class GameTest {
         int result = game.getNumberOfCorrectNumber(guess);
         Assert.assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void test_get_number_of_correct_position_with_0_correct() {
+        Game game = new Game();
+        int[] answer = {1, 2, 3, 4};
+        int[] guess = {4, 3, 2, 1};
+        int expectedResult = 0;
+        game.setAnswer(answer);
+
+        int result = game.getNumberOfCorrectPosition(guess);
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void test_get_number_of_correct_position_with_2_correct() {
+        Game game = new Game();
+        int[] answer = {1, 2, 3, 4};
+        int[] guess = {1, 2, 5, 6};
+        int expectedResult = 2;
+        game.setAnswer(answer);
+
+        int result = game.getNumberOfCorrectPosition(guess);
+        Assert.assertEquals(expectedResult, result);
+    }
 }

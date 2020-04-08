@@ -17,4 +17,13 @@ public class Game {
         }
         return numberOfCorrectNumber;
     }
+
+    public int getNumberOfCorrectPosition(int[] guess) {
+        int numberOfCorrectPosition = 0;
+        for (int index = 0; index < answer.length; index++) {
+            numberOfCorrectPosition += answer[index] == guess[index] ? 1 : 0;
+        }
+        return numberOfCorrectPosition;
+    }
+
 }
