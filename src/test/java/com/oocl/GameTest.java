@@ -122,11 +122,10 @@ public class GameTest {
     }
 
     @Test
-    public void test_start_game() {
+    public void test_initialize_data() {
         Game game = new Game();
-        game.startGame();
+        game.initializeGameData();
         Assert.assertEquals(Game.NUMBER_OF_TOTAL_ROUND, game.getRemainingRound());
     }
-
 
 }

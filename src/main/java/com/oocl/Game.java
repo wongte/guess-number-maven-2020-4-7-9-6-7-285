@@ -3,11 +3,19 @@ package com.oocl;
 import java.util.*;
 
 public class Game {
+    private Console console;
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
 
     private int[] answer = new int[LENGTH_OF_GAME];
     private int remainingRound;
+
+    public Game(Console console) {
+        this.console = console;
+    }
+
+    public Game() {
+    }
 
     public void setAnswer(int[] answer) {
         this.answer = answer;
@@ -96,12 +104,31 @@ public class Game {
         }
     }
 
-    public void startGame() {
+    public void initializeGameData() {
         this.generateAnswer();
         this.remainingRound = NUMBER_OF_TOTAL_ROUND;
     }
 
     public int getRemainingRound() {
         return remainingRound;
+    }
+
+    private void nextRound() {
+        this.remainingRound--;
+    }
+
+    public void startGame() {
+        this.initializeGameData();
+        while (!this.isGameOver()) {
+            String inputFromConsole = console.readInputFromConsole();
+            try {
+                int[] guess = this.validateAndConvertIntgerArray(inputFromConsole);
+                String result = this.checkResult(guess);
+                console.displayResultToConsole(result);
+            } catch (Exception e) {
+                console.displayResultToConsole(e.getMessage());
+            }
+            this.nextRound();
+        }
     }
 }
