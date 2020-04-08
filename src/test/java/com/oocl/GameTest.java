@@ -83,8 +83,21 @@ public class GameTest {
     @Test
     public void test_validate_unique_number_in_guess_with_duplicated_guess() {
         Game game = new Game();
-        int[] duplicatedArray = {1, 2, 2, 4};
         String uniqueGuess = "1 2 2 4";
+        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
+        String errorMessage = null;
+        try {
+            game.validateAndConvertIntgerArray(uniqueGuess);
+        } catch (Exception exception) {
+            errorMessage = exception.getMessage();
+        }
+        Assert.assertEquals(expectedErrorMessage, errorMessage);
+    }
+
+    @Test
+    public void test_validate_numbers_in_range_with_out_range_value() {
+        Game game = new Game();
+        String uniqueGuess = "1 2 10 4";
         String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
         String errorMessage = null;
         try {

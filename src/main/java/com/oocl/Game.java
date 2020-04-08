@@ -6,6 +6,7 @@ public class Game {
     private GameIO gameIO;
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
+    public static final int UPPER_BOUND_OF_INPUT_NUMBER = 9; // User can only input [0, UPPER_BOUND_OF_INPUT_NUMBER]
 
     private int[] answer = new int[LENGTH_OF_GAME];
     private int remainingRound;
@@ -51,7 +52,10 @@ public class Game {
     }
 
     private void validateRawInputFormat(String rawInput) throws Exception {
-        if (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
+        if (!rawInput.matches("[\\d\\s]+")) {
+            throw new InvalidInputException();
+        }
+        if (rawInput.split(" ").length < LENGTH_OF_GAME) {
             throw new InvalidInputException();
         }
     }
@@ -73,15 +77,22 @@ public class Game {
                 }
             }
         }
+    }
 
+    private void validateNumbersInRange(int[] guess) throws Exception {
+        for (int eachGuess : guess) {
+            if (eachGuess > UPPER_BOUND_OF_INPUT_NUMBER || eachGuess < 0) throw new InvalidInputException();
+        }
     }
 
     public int[] validateAndConvertIntgerArray(String rawInput) throws Exception {
         validateRawInputFormat(rawInput);
         int[] guess = convertToIntegerArray(rawInput);
         validateUniqueNumberInGuess(guess);
+        validateNumbersInRange(guess);
         return guess;
     }
+
 
     public boolean isGameOver() {
         return this.remainingRound <= 0;
@@ -94,7 +105,7 @@ public class Game {
     private void generateAnswer() {
         List<Integer> randomNumbers = new ArrayList<>();
         while (randomNumbers.size() < LENGTH_OF_GAME) {
-            int generatedNumber = new Random().nextInt(10);
+            int generatedNumber = new Random().nextInt(UPPER_BOUND_OF_INPUT_NUMBER + 1);
             if (!randomNumbers.contains(generatedNumber)) {
                 randomNumbers.add(generatedNumber);
             }
