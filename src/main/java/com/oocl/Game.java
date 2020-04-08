@@ -3,15 +3,15 @@ package com.oocl;
 import java.util.*;
 
 public class Game {
-    private Console console;
+    private GameIO gameIO;
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
 
     private int[] answer = new int[LENGTH_OF_GAME];
     private int remainingRound;
 
-    public Game(Console console) {
-        this.console = console;
+    public Game(GameIO gameIO) {
+        this.gameIO = gameIO;
     }
 
     public Game() {
@@ -119,16 +119,18 @@ public class Game {
 
     public void startGame() {
         this.initializeGameData();
+        gameIO.displayResultToConsole("Start Game");
         while (!this.isGameOver()) {
-            String inputFromConsole = console.readInputFromConsole();
+            String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = this.validateAndConvertIntgerArray(inputFromConsole);
                 String result = this.checkResult(guess);
-                console.displayResultToConsole(result);
+                gameIO.displayResultToConsole(result);
             } catch (Exception e) {
-                console.displayResultToConsole(e.getMessage());
+                gameIO.displayResultToConsole(e.getMessage());
             }
             this.nextRound();
         }
+        gameIO.displayResultToConsole("End Game");
     }
 }

@@ -3,6 +3,8 @@ package com.oocl;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class GameTest {
     @Test
     public void test_check_result_with_0a0b() {
@@ -128,4 +130,22 @@ public class GameTest {
         Assert.assertEquals(Game.NUMBER_OF_TOTAL_ROUND, game.getRemainingRound());
     }
 
+    @Test
+    public void test_game() {
+        ManualConsole console = new ManualConsole();
+        console.addInputLine("1 2 3 4");
+        console.addInputLine("1 2 3 4");
+        console.addInputLine("1 2 3 4");
+        console.addInputLine("1 2 3 4");
+        console.addInputLine("1 2 3 4");
+        console.addInputLine("1 2 3 4");
+        Game game = new Game(console);
+        game.startGame();
+
+        List<String> outputResult = console.getOutput();
+        String firstMessage = outputResult.get(0);
+        Assert.assertEquals("Start Game", firstMessage);
+        String lastMessage = outputResult.get(outputResult.size() - 1);
+        Assert.assertEquals("End Game", lastMessage);
+    }
 }
