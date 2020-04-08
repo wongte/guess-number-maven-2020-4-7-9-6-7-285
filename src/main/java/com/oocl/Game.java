@@ -1,7 +1,15 @@
 package com.oocl;
 
 public class Game {
-    private int[] answer = new int[4];
+    public static final int NUMBER_OF_TOTAL_ROUND = 6;
+    public static final int LENGTH_OF_GAME = 4;
+
+    private int[] answer = new int[LENGTH_OF_GAME];
+    private int remainingRound;
+
+    public Game() {
+        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
+    }
 
     public void setAnswer(int[] answer) {
         this.answer = answer;
@@ -67,5 +75,13 @@ public class Game {
         int[] guess = convertToIntegerArray(rawInput);
         validateUniqueNumberInGuess(guess);
         return guess;
+    }
+
+    public boolean isGameOver() {
+        return this.remainingRound <= 0;
+    }
+
+    public void setRemainingRound(int remainingRound) {
+        this.remainingRound = remainingRound;
     }
 }
