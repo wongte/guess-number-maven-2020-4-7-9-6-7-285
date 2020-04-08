@@ -40,4 +40,13 @@ public class Game {
             throw new Exception("Wrong Input，Input again");
         }
     }
+
+    public int[] convertToIntegerArray(String rawInput) {
+        String[] stringArray = rawInput.split(" ");
+        int[] integerArray = new int[stringArray.length];
+        for (int index = 0; index < stringArray.length; index++) {
+            integerArray[index] = Integer.parseInt(stringArray[index]);
+        }
+        return integerArray;
+    }
 }
