@@ -91,4 +91,13 @@ public class GameTest {
         }
         Assert.assertEquals(expectedErrorMessage, errorMessage);
     }
+
+    @Test
+    public void test_convert_to_integer_array() {
+        Game game = new Game();
+        String rawInput = "1 2 3 4";
+        int[] expectedArray = {1, 2, 3, 4};
+        int[] result = game.convertToIntegerArray(rawInput);
+        Assert.assertArrayEquals(expectedArray, result);
+    }
 }
