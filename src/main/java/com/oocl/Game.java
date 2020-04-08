@@ -36,13 +36,13 @@ public class Game {
         return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
     }
 
-    public void validateRawInputFormat(String rawInput) throws Exception {
+    private void validateRawInputFormat(String rawInput) throws Exception {
         if (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
             throw new Exception("Wrong Input，Input again");
         }
     }
 
-    public int[] convertToIntegerArray(String rawInput) {
+    private int[] convertToIntegerArray(String rawInput) {
         String[] stringArray = rawInput.split(" ");
         int[] integerArray = new int[stringArray.length];
         for (int index = 0; index < stringArray.length; index++) {
@@ -51,7 +51,7 @@ public class Game {
         return integerArray;
     }
 
-    public void validateUniqueNumberInGuess(int[] guess) throws Exception {
+    private void validateUniqueNumberInGuess(int[] guess) throws Exception {
         for (int sourceIndex = 0; sourceIndex < guess.length; sourceIndex++) {
             for (int targetIndex = sourceIndex + 1; targetIndex < guess.length; targetIndex++) {
                 if (guess[sourceIndex] == guess[targetIndex]) {
@@ -60,5 +60,12 @@ public class Game {
             }
         }
 
+    }
+
+    public int[] validateAndConvertIntgerArray(String rawInput) throws Exception {
+        validateRawInputFormat(rawInput);
+        int[] guess = convertToIntegerArray(rawInput);
+        validateUniqueNumberInGuess(guess);
+        return guess;
     }
 }

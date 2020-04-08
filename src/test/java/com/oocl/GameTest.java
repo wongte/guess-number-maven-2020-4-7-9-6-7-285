@@ -43,7 +43,7 @@ public class GameTest {
         String rawInput = "1 2 3 4";
         String errorMessage = null;
         try {
-            game.validateRawInputFormat(rawInput);
+            game.validateAndConvertIntgerArray(rawInput);
         } catch (Exception exception) {
             errorMessage = exception.getMessage();
         }
@@ -58,7 +58,7 @@ public class GameTest {
 
         String errorMessage = null;
         try {
-            game.validateRawInputFormat(rawInput);
+            game.validateAndConvertIntgerArray(rawInput);
         } catch (Exception exception) {
             errorMessage = exception.getMessage();
         }
@@ -68,10 +68,10 @@ public class GameTest {
     @Test
     public void test_validate_unique_number_in_guess_with_unique_guess() {
         Game game = new Game();
-        int[] duplicatedArray = {1, 2, 3, 4};
+        String duplicatedGuess = "1 2 3 4";
         String errorMessage = null;
         try {
-            game.validateUniqueNumberInGuess(duplicatedArray);
+            game.validateAndConvertIntgerArray(duplicatedGuess);
         } catch (Exception exception) {
             errorMessage = exception.getMessage();
         }
@@ -82,10 +82,11 @@ public class GameTest {
     public void test_validate_unique_number_in_guess_with_duplicated_guess() {
         Game game = new Game();
         int[] duplicatedArray = {1, 2, 2, 4};
+        String uniqueGuess = "1 2 2 4";
         String expectedErrorMessage = "Wrong Input，Input again";
         String errorMessage = null;
         try {
-            game.validateUniqueNumberInGuess(duplicatedArray);
+            game.validateAndConvertIntgerArray(uniqueGuess);
         } catch (Exception exception) {
             errorMessage = exception.getMessage();
         }
@@ -97,7 +98,11 @@ public class GameTest {
         Game game = new Game();
         String rawInput = "1 2 3 4";
         int[] expectedArray = {1, 2, 3, 4};
-        int[] result = game.convertToIntegerArray(rawInput);
-        Assert.assertArrayEquals(expectedArray, result);
+        try {
+            int[] result = game.validateAndConvertIntgerArray(rawInput);
+            Assert.assertArrayEquals(expectedArray, result);
+        } catch (Exception exception) {
+            Assert.fail();
+        }
     }
 }
