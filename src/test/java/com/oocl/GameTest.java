@@ -36,4 +36,32 @@ public class GameTest {
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void test_validate_raw_input_format_with_correct_format() {
+        Game game = new Game();
+        String rawInput = "1 2 3 4";
+        String errorMessage = null;
+        try {
+            game.validateRawInputFormat(rawInput);
+        } catch (Exception exception) {
+            errorMessage = exception.getMessage();
+        }
+        Assert.assertNull(errorMessage);
+    }
+
+    @Test
+    public void test_validate_raw_input_format_with_duplicate_numbers() {
+        Game game = new Game();
+        String rawInput = "1 2";
+        String expectedErrorMessage = "Wrong Input，Input again";
+
+        String errorMessage = null;
+        try {
+            game.validateRawInputFormat(rawInput);
+        } catch (Exception exception) {
+            errorMessage = exception.getMessage();
+        }
+        Assert.assertEquals(expectedErrorMessage, errorMessage);
+    }
 }

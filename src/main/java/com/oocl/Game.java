@@ -34,4 +34,10 @@ public class Game {
         int numberOfCorrectPosition = this.getNumberOfCorrectPosition(guess);
         return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
     }
+
+    public void validateRawInputFormat(String rawInput) throws Exception {
+        if  (!rawInput.matches("[0-9] [0-9] [0-9] [0-9]")) {
+            throw new Exception("Wrong Input，Input again");
+        }
+    }
 }
