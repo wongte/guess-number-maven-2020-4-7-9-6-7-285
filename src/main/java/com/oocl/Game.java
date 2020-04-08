@@ -26,4 +26,8 @@ public class Game {
         return numberOfCorrectPosition;
     }
 
+    public String generateResultOutput(int numberOfCorrectNumber, int numberOfCorrectPosition) {
+        int b = numberOfCorrectNumber - numberOfCorrectPosition;
+        return String.format("%dA%dB", numberOfCorrectPosition, b);
+    }
 }

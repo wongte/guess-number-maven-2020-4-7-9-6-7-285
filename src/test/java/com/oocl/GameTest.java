@@ -51,4 +51,12 @@ public class GameTest {
         int result = game.getNumberOfCorrectPosition(guess);
         Assert.assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void test_generate_result_output() {
+        Game game = new Game();
+        String expectedResult = "1A2B";
+        String actualResult = game.generateResultOutput(3, 1);
+        Assert.assertEquals(expectedResult, actualResult);
+    }
 }
