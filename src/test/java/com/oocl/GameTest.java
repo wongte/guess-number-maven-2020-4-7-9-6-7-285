@@ -138,21 +138,23 @@ public class GameTest {
 
     @Test
     public void test_initialize_data() {
-        Game game = new Game();
+        Console console = new Console();
+        RandomAnswerGenerator answerGenerator = new RandomAnswerGenerator(Game.LENGTH_OF_GAME, Game.UPPER_BOUND_OF_INPUT_NUMBER);
+        Game game = new Game(console, answerGenerator);
         game.initializeGameData();
         Assert.assertEquals(Game.NUMBER_OF_TOTAL_ROUND, game.getRemainingRound());
     }
 
     @Test
     public void test_game() {
-        ManualConsole console = new ManualConsole();
+        RandomAnswerGenerator answerGenerator = new RandomAnswerGenerator(Game.LENGTH_OF_GAME, Game.UPPER_BOUND_OF_INPUT_NUMBER);        ManualConsole console = new ManualConsole();
         console.addInputLine("1 2 3 4");
         console.addInputLine("1 2 3 4");
         console.addInputLine("1 2 3 4");
         console.addInputLine("1 2 3 4");
         console.addInputLine("1 2 3 4");
         console.addInputLine("1 2 3 4");
-        Game game = new Game(console);
+        Game game = new Game(console, answerGenerator);
         game.startGame();
 
         List<String> outputResult = console.getOutput();

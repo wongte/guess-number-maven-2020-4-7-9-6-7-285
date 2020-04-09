@@ -4,16 +4,18 @@ import java.util.*;
 
 public class Game {
     private static final String SEPARATOR = " ";
-    private GameIO gameIO;
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
     public static final int UPPER_BOUND_OF_INPUT_NUMBER = 9; // User can only input [0, UPPER_BOUND_OF_INPUT_NUMBER]
 
     private int[] answer = new int[LENGTH_OF_GAME];
     private int remainingRound;
+    private AnswerGenerator answerGenerator;
+    private GameIO gameIO;
 
-    public Game(GameIO gameIO) {
+    public Game(GameIO gameIO, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
+        this.answerGenerator = answerGenerator;
     }
 
     public Game() {
@@ -102,21 +104,8 @@ public class Game {
         this.remainingRound = remainingRound;
     }
 
-    private void generateAnswer() {
-        List<Integer> randomNumbers = new ArrayList<>();
-        while (randomNumbers.size() < LENGTH_OF_GAME) {
-            int generatedNumber = new Random().nextInt(UPPER_BOUND_OF_INPUT_NUMBER + 1);
-            if (!randomNumbers.contains(generatedNumber)) {
-                randomNumbers.add(generatedNumber);
-            }
-        }
-        for (int index = 0; index < randomNumbers.size(); index++) {
-            this.answer[index] = randomNumbers.get(index);
-        }
-    }
-
     public void initializeGameData() {
-        this.generateAnswer();
+        this.answer = this.answerGenerator.generateAnswer();
         this.remainingRound = NUMBER_OF_TOTAL_ROUND;
     }
 
