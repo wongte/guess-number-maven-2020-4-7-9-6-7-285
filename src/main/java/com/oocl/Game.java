@@ -7,18 +7,15 @@ public class Game {
     public static final int UPPER_BOUND_OF_INPUT_NUMBER = 9; // User can only input [0, UPPER_BOUND_OF_INPUT_NUMBER]
 
     private int[] answer;
-    private int remainingRound;
     private GameIO gameIO;
+    private GameProcess gameProcess;
     private GameInputFormatter validator;
 
     public Game(GameIO gameIO, GameInputFormatter validator, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
         this.validator = validator;
         this.answer = answerGenerator.generateAnswer();
-        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
-    }
-
-    public Game() {
+        this.gameProcess = new GameProcess(NUMBER_OF_TOTAL_ROUND);
     }
 
     private int getNumberOfCorrectNumber(int[] guess) {
@@ -50,27 +47,11 @@ public class Game {
         return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
     }
 
-    public boolean isGameOver() {
-        return this.remainingRound <= 0;
-    }
-
-    public void setRemainingRound(int remainingRound) {
-        this.remainingRound = remainingRound;
-    }
-
-    public int getRemainingRound() {
-        return remainingRound;
-    }
-
-    private void nextRound() {
-        this.remainingRound--;
-    }
-
     public void startGame() {
         String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
         boolean isVictory = false;
         gameIO.displayResultToConsole("Start Game");
-        while (!isVictory && !this.isGameOver()) {
+        while (!isVictory && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = validator.validateAndConvertIntegerArray(inputFromConsole);
@@ -80,7 +61,7 @@ public class Game {
             } catch (InvalidInputException e) {
                 gameIO.displayResultToConsole(e.getMessage());
             }
-            this.nextRound();
+            gameProcess.nextRound();
         }
         gameIO.displayResultToConsole("End Game");
     }

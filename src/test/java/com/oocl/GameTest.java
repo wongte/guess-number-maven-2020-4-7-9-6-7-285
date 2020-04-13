@@ -59,21 +59,6 @@ public class GameTest {
     }
 
     @Test
-    public void test_is_game_over_with_over() {
-        Game game = new Game();
-        game.setRemainingRound(0);
-        Assert.assertTrue(game.isGameOver());
-    }
-
-    @Test
-    public void test_is_game_over_with_not_over() {
-        Game game = new Game();
-        game.setRemainingRound(1);
-        boolean result = game.isGameOver();
-        Assert.assertFalse(result);
-    }
-
-    @Test
     public void test_game_end_after_6_incorrect_tries() {
         int[] answer = {1, 2, 3, 4};
         RandomAnswerGenerator answerGenerator = Mockito.mock(RandomAnswerGenerator.class);
