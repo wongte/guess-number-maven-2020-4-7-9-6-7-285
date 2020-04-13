@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import java.util.List;
 
 public class GameTest {
-    GameInputValidator gameInputValidator = new GameInputValidator(" ", 4, 9);
+    GameInputFormatter gameInputValidator = new GameInputFormatter(" ", 4, 9);
 
     private AnswerGenerator createMockAnswerGenerator(int[] expectedAnswer) {
         AnswerGenerator answerGenerator = Mockito.mock(RandomAnswerGenerator.class);

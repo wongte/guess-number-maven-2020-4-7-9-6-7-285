@@ -1,10 +1,10 @@
 package com.oocl;
 
-public class GameInputValidator {
+public class GameInputFormatter {
     private String separator;
     private int lengthOfGame, upperBoundOfInputNumber;
 
-    public GameInputValidator(String separator, int lengthOfGame, int upperBoundOfInputNumber) {
+    public GameInputFormatter(String separator, int lengthOfGame, int upperBoundOfInputNumber) {
         this.separator = separator;
         this.lengthOfGame = lengthOfGame;
         this.upperBoundOfInputNumber = upperBoundOfInputNumber;

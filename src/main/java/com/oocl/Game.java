@@ -9,9 +9,9 @@ public class Game {
     private int[] answer;
     private int remainingRound;
     private GameIO gameIO;
-    private GameInputValidator validator;
+    private GameInputFormatter validator;
 
-    public Game(GameIO gameIO, GameInputValidator validator, AnswerGenerator answerGenerator) {
+    public Game(GameIO gameIO, GameInputFormatter validator, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
         this.validator = validator;
         this.answer = answerGenerator.generateAnswer();

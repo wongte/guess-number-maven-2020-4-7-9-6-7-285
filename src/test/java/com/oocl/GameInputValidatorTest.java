@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class GameInputValidatorTest {
-    private GameInputValidator gameInputValidator;
+    private GameInputFormatter gameInputValidator;
 
     @Before
     public void setUp() {
-        gameInputValidator = new GameInputValidator(" ", 4, 9);
+        gameInputValidator = new GameInputFormatter(" ", 4, 9);
     }
 
     @Test
