@@ -1,5 +1,7 @@
 package com.oocl;
 
+import java.util.Arrays;
+
 public class GameInputFormatter {
     private String separator;
     private int lengthOfGame, upperBoundOfInputNumber;
@@ -21,11 +23,7 @@ public class GameInputFormatter {
 
     private int[] convertToIntegerArray(String rawInput) {
         String[] stringArray = rawInput.split(separator);
-        int[] integerArray = new int[stringArray.length];
-        for (int index = 0; index < stringArray.length; index++) {
-            integerArray[index] = Integer.parseInt(stringArray[index]);
-        }
-        return integerArray;
+        return Arrays.stream(stringArray).mapToInt(Integer::parseInt).toArray();
     }
 
     private void validateUniqueNumberInGuess(int[] guess) throws InvalidInputException {
