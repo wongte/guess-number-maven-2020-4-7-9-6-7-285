@@ -9,11 +9,11 @@ public class Game {
     private int[] answer;
     private GameIO gameIO;
     private GameProcess gameProcess;
-    private GameInputFormatter validator;
+    private GameInputFormatter gameInputFormatter;
 
-    public Game(GameIO gameIO, GameInputFormatter validator, AnswerGenerator answerGenerator) {
+    public Game(GameIO gameIO, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
-        this.validator = validator;
+        this.gameInputFormatter = new GameInputFormatter(SEPARATOR, LENGTH_OF_GAME, UPPER_BOUND_OF_INPUT_NUMBER);
         this.answer = answerGenerator.generateAnswer();
         this.gameProcess = new GameProcess(NUMBER_OF_TOTAL_ROUND);
     }
@@ -54,7 +54,7 @@ public class Game {
         while (!isVictory && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
-                int[] guess = validator.validateAndConvertIntegerArray(inputFromConsole);
+                int[] guess = gameInputFormatter.validateAndConvertIntegerArray(inputFromConsole);
                 String result = this.checkResult(guess);
                 gameIO.displayResultToConsole(result);
                 isVictory = result.equals(victoryResult);

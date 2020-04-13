@@ -8,8 +8,6 @@ import org.mockito.Mockito;
 import java.util.List;
 
 public class GameTest {
-    GameInputFormatter gameInputValidator = new GameInputFormatter(" ", 4, 9);
-
     private AnswerGenerator createMockAnswerGenerator(int[] expectedAnswer) {
         AnswerGenerator answerGenerator = Mockito.mock(RandomAnswerGenerator.class);
         Mockito.when(answerGenerator.generateAnswer()).thenReturn(expectedAnswer);
@@ -24,7 +22,7 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
+        Game game = new Game(console, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
@@ -38,7 +36,7 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
+        Game game = new Game(console, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
@@ -52,7 +50,7 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
+        Game game = new Game(console, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
@@ -67,7 +65,7 @@ public class GameTest {
         Mockito.when(answerGenerator.generateAnswer()).thenReturn( answer);
         Mockito.when(console.readInputFromConsole()).thenReturn( "1 2 3 5");
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        Game game = new Game(console, gameInputValidator, answerGenerator);
+        Game game = new Game(console, answerGenerator);
         game.startGame();
         Mockito.verify(console, Mockito.times(8)).displayResultToConsole(stringArgumentCaptor.capture());
 
@@ -91,7 +89,7 @@ public class GameTest {
                 .thenReturn( "1 2 3 5")
                 .thenReturn("1 2 3 4");
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        Game game = new Game(console, gameInputValidator, answerGenerator);
+        Game game = new Game(console, answerGenerator);
         game.startGame();
         Mockito.verify(console, Mockito.times(4)).displayResultToConsole(stringArgumentCaptor.capture());
 
