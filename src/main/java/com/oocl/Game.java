@@ -1,7 +1,5 @@
 package com.oocl;
 
-import java.util.*;
-
 public class Game {
     private static final String SEPARATOR = " ";
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
@@ -11,9 +9,11 @@ public class Game {
     private int[] answer;
     private int remainingRound;
     private GameIO gameIO;
+    private GameInputValidator validator;
 
-    public Game(GameIO gameIO, AnswerGenerator answerGenerator) {
+    public Game(GameIO gameIO, GameInputValidator validator, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
+        this.validator = validator;
         this.answer = answerGenerator.generateAnswer();
         this.remainingRound = NUMBER_OF_TOTAL_ROUND;
     }
@@ -50,48 +50,6 @@ public class Game {
         return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
     }
 
-    private void validateRawInputFormat(String rawInput) throws InvalidInputException {
-        if (!rawInput.matches("[\\d\\s]+")) {
-            throw new InvalidInputException();
-        }
-        if (rawInput.split(SEPARATOR).length < LENGTH_OF_GAME) {
-            throw new InvalidInputException();
-        }
-    }
-
-    private int[] convertToIntegerArray(String rawInput) {
-        String[] stringArray = rawInput.split(SEPARATOR);
-        int[] integerArray = new int[stringArray.length];
-        for (int index = 0; index < stringArray.length; index++) {
-            integerArray[index] = Integer.parseInt(stringArray[index]);
-        }
-        return integerArray;
-    }
-
-    private void validateUniqueNumberInGuess(int[] guess) throws InvalidInputException {
-        for (int sourceIndex = 0; sourceIndex < guess.length; sourceIndex++) {
-            for (int targetIndex = sourceIndex + 1; targetIndex < guess.length; targetIndex++) {
-                if (guess[sourceIndex] == guess[targetIndex]) {
-                    throw new InvalidInputException();
-                }
-            }
-        }
-    }
-
-    private void validateNumbersInRange(int[] guess) throws InvalidInputException {
-        for (int eachGuess : guess) {
-            if (eachGuess > UPPER_BOUND_OF_INPUT_NUMBER || eachGuess < 0) throw new InvalidInputException();
-        }
-    }
-
-    public int[] validateAndConvertIntegerArray(String rawInput) throws InvalidInputException {
-        validateRawInputFormat(rawInput);
-        int[] guess = convertToIntegerArray(rawInput);
-        validateUniqueNumberInGuess(guess);
-        validateNumbersInRange(guess);
-        return guess;
-    }
-
     public boolean isGameOver() {
         return this.remainingRound <= 0;
     }
@@ -115,7 +73,7 @@ public class Game {
         while (!isVictory && !this.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
-                int[] guess = this.validateAndConvertIntegerArray(inputFromConsole);
+                int[] guess = validator.validateAndConvertIntegerArray(inputFromConsole);
                 String result = this.checkResult(guess);
                 gameIO.displayResultToConsole(result);
                 isVictory = result.equals(victoryResult);

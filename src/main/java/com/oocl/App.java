@@ -9,7 +9,8 @@ public class App
     public static void main( String[] args ) {
         Console console = new Console();
         RandomAnswerGenerator answerGenerator = new RandomAnswerGenerator(Game.LENGTH_OF_GAME, Game.UPPER_BOUND_OF_INPUT_NUMBER);
-        Game game = new Game(console, answerGenerator);
+        GameInputValidator gameInputValidator = new GameInputValidator(" ", Game.LENGTH_OF_GAME, Game.UPPER_BOUND_OF_INPUT_NUMBER);
+        Game game = new Game(console, gameInputValidator, answerGenerator);
         game.startGame();
     }
 }

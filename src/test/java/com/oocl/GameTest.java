@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 import java.util.List;
 
 public class GameTest {
+    GameInputValidator gameInputValidator = new GameInputValidator(" ", 4, 9);
+
     private AnswerGenerator createMockAnswerGenerator(int[] expectedAnswer) {
         AnswerGenerator answerGenerator = Mockito.mock(RandomAnswerGenerator.class);
         Mockito.when(answerGenerator.generateAnswer()).thenReturn(expectedAnswer);
@@ -22,7 +24,7 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, mockAnswerGenerator);
+        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
@@ -36,7 +38,7 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, mockAnswerGenerator);
+        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
@@ -50,92 +52,10 @@ public class GameTest {
 
         Console console = new Console();
         AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
-        Game game = new Game(console, mockAnswerGenerator);
+        Game game = new Game(console, gameInputValidator, mockAnswerGenerator);
 
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void test_validate_raw_input_format_with_correct_format() {
-        Game game = new Game();
-        String rawInput = "1 2 3 4";
-        String errorMessage = null;
-        try {
-            game.validateAndConvertIntegerArray(rawInput);
-        } catch (Exception exception) {
-            errorMessage = exception.getMessage();
-        }
-        Assert.assertNull(errorMessage);
-    }
-
-    @Test
-    public void test_validate_raw_input_format_with_incorrect_format() {
-        Game game = new Game();
-        String rawInput = "1 2";
-        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
-
-        String errorMessage = null;
-        try {
-            game.validateAndConvertIntegerArray(rawInput);
-        } catch (Exception exception) {
-            errorMessage = exception.getMessage();
-        }
-        Assert.assertEquals(expectedErrorMessage, errorMessage);
-    }
-
-    @Test
-    public void test_validate_unique_number_in_guess_with_unique_guess() {
-        Game game = new Game();
-        String duplicatedGuess = "1 2 3 4";
-        String errorMessage = null;
-        try {
-            game.validateAndConvertIntegerArray(duplicatedGuess);
-        } catch (Exception exception) {
-            errorMessage = exception.getMessage();
-        }
-        Assert.assertNull(errorMessage);
-    }
-
-    @Test
-    public void test_validate_unique_number_in_guess_with_duplicated_guess() {
-        Game game = new Game();
-        String uniqueGuess = "1 2 2 4";
-        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
-        String errorMessage = null;
-        try {
-            game.validateAndConvertIntegerArray(uniqueGuess);
-        } catch (Exception exception) {
-            errorMessage = exception.getMessage();
-        }
-        Assert.assertEquals(expectedErrorMessage, errorMessage);
-    }
-
-    @Test
-    public void test_validate_numbers_in_range_with_out_range_value() {
-        Game game = new Game();
-        String uniqueGuess = "1 2 10 4";
-        String expectedErrorMessage = InvalidInputException.INVALID_INPUT_MESSAGE;
-        String errorMessage = null;
-        try {
-            game.validateAndConvertIntegerArray(uniqueGuess);
-        } catch (Exception exception) {
-            errorMessage = exception.getMessage();
-        }
-        Assert.assertEquals(expectedErrorMessage, errorMessage);
-    }
-
-    @Test
-    public void test_convert_to_integer_array() {
-        Game game = new Game();
-        String rawInput = "1 2 3 4";
-        int[] expectedArray = {1, 2, 3, 4};
-        try {
-            int[] result = game.validateAndConvertIntegerArray(rawInput);
-            Assert.assertArrayEquals(expectedArray, result);
-        } catch (Exception exception) {
-            Assert.fail();
-        }
     }
 
     @Test
@@ -162,7 +82,7 @@ public class GameTest {
         Mockito.when(answerGenerator.generateAnswer()).thenReturn( answer);
         Mockito.when(console.readInputFromConsole()).thenReturn( "1 2 3 5");
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        Game game = new Game(console, answerGenerator);
+        Game game = new Game(console, gameInputValidator, answerGenerator);
         game.startGame();
         Mockito.verify(console, Mockito.times(8)).displayResultToConsole(stringArgumentCaptor.capture());
 
@@ -186,7 +106,7 @@ public class GameTest {
                 .thenReturn( "1 2 3 5")
                 .thenReturn("1 2 3 4");
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        Game game = new Game(console, answerGenerator);
+        Game game = new Game(console, gameInputValidator, answerGenerator);
         game.startGame();
         Mockito.verify(console, Mockito.times(4)).displayResultToConsole(stringArgumentCaptor.capture());
 
