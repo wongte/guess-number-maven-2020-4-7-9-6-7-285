@@ -14,7 +14,7 @@ public class GameInputFormatter {
         if (!rawInput.matches("[\\d\\s]+")) {
             throw new InvalidInputException();
         }
-        if (rawInput.split(separator).length < lengthOfGame) {
+        if (rawInput.split(separator).length != lengthOfGame) {
             throw new InvalidInputException();
         }
     }

@@ -31,8 +31,14 @@ public class GameInputFormatterTest {
     }
 
     @Test(expected = InvalidInputException.class)
-    public void test_validate_raw_input_format_with_incorrect_format() throws InvalidInputException {
+    public void test_validate_raw_input_format_with_fewer_guess_than_need() throws InvalidInputException {
         String rawInput = "1 2";
+        gameInputValidator.validateAndConvertIntegerArray(rawInput);
+    }
+
+    @Test(expected = InvalidInputException.class)
+    public void test_validate_raw_input_format_with_more_guess_than_need() throws InvalidInputException {
+        String rawInput = "1 2 3 4 5";
         gameInputValidator.validateAndConvertIntegerArray(rawInput);
     }
 
