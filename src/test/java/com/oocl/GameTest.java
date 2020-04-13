@@ -2,39 +2,55 @@ package com.oocl;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
 public class GameTest {
+    private AnswerGenerator createMockAnswerGenerator(int[] expectedAnswer) {
+        AnswerGenerator answerGenerator = Mockito.mock(RandomAnswerGenerator.class);
+        Mockito.when(answerGenerator.generateAnswer()).thenReturn(expectedAnswer);
+        return answerGenerator;
+    }
+
     @Test
     public void test_check_result_with_0a0b() {
-        Game game = new Game();
         int[] answer = {1, 2, 3, 4};
         int[] guess = {5, 6, 7, 8};
         String expectedResult = "0A0B";
-        game.setAnswer(answer);
+
+        Console console = new Console();
+        AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
+        Game game = new Game(console, mockAnswerGenerator);
+
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void test_check_result_with_2a2b() {
-        Game game = new Game();
         int[] answer = {1, 2, 3, 4};
         int[] guess = {1, 2, 4, 3};
         String expectedResult = "2A2B";
-        game.setAnswer(answer);
+
+        Console console = new Console();
+        AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
+        Game game = new Game(console, mockAnswerGenerator);
+
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void test_check_result_with_4a0b() {
-        Game game = new Game();
         int[] answer = {1, 2, 3, 4};
         int[] guess = {1, 2, 3, 4};
         String expectedResult = "4A0B";
-        game.setAnswer(answer);
+
+        Console console = new Console();
+        AnswerGenerator mockAnswerGenerator = createMockAnswerGenerator(answer);
+        Game game = new Game(console, mockAnswerGenerator);
+
         String actualResult = game.checkResult(guess);
         Assert.assertEquals(expectedResult, actualResult);
     }
@@ -134,15 +150,6 @@ public class GameTest {
         game.setRemainingRound(1);
         boolean result = game.isGameOver();
         Assert.assertFalse(result);
-    }
-
-    @Test
-    public void test_initialize_data() {
-        Console console = new Console();
-        RandomAnswerGenerator answerGenerator = new RandomAnswerGenerator(Game.LENGTH_OF_GAME, Game.UPPER_BOUND_OF_INPUT_NUMBER);
-        Game game = new Game(console, answerGenerator);
-        game.initializeGameData();
-        Assert.assertEquals(Game.NUMBER_OF_TOTAL_ROUND, game.getRemainingRound());
     }
 
     @Test

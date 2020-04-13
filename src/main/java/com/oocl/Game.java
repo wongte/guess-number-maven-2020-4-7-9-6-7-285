@@ -8,21 +8,17 @@ public class Game {
     public static final int LENGTH_OF_GAME = 4;
     public static final int UPPER_BOUND_OF_INPUT_NUMBER = 9; // User can only input [0, UPPER_BOUND_OF_INPUT_NUMBER]
 
-    private int[] answer = new int[LENGTH_OF_GAME];
+    private int[] answer;
     private int remainingRound;
-    private AnswerGenerator answerGenerator;
     private GameIO gameIO;
 
     public Game(GameIO gameIO, AnswerGenerator answerGenerator) {
         this.gameIO = gameIO;
-        this.answerGenerator = answerGenerator;
+        this.answer = answerGenerator.generateAnswer();
+        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
     }
 
     public Game() {
-    }
-
-    public void setAnswer(int[] answer) {
-        this.answer = answer;
     }
 
     private int getNumberOfCorrectNumber(int[] guess) {
@@ -104,11 +100,6 @@ public class Game {
         this.remainingRound = remainingRound;
     }
 
-    public void initializeGameData() {
-        this.answer = this.answerGenerator.generateAnswer();
-        this.remainingRound = NUMBER_OF_TOTAL_ROUND;
-    }
-
     public int getRemainingRound() {
         return remainingRound;
     }
@@ -120,7 +111,6 @@ public class Game {
     public void startGame() {
         String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
         boolean isVictory = false;
-        this.initializeGameData();
         gameIO.displayResultToConsole("Start Game");
         while (!isVictory && !this.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
