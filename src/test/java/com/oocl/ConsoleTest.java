@@ -3,8 +3,7 @@ package com.oocl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 public class ConsoleTest {
     @Test
@@ -17,5 +16,17 @@ public class ConsoleTest {
         String actualResult = console.readInputFromConsole();
 
         Assert.assertEquals(expected, actualResult);
+    }
+
+    @Test
+    public void test_displayResultToConsole() {
+        String expected = "1A1B";
+        OutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+
+        Console console = new Console();
+        console.displayResultToConsole(expected);
+        Assert.assertEquals(expected + "\r\n", outputStream.toString());
     }
 }
