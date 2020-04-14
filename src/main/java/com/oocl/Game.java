@@ -1,5 +1,12 @@
 package com.oocl;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class Game {
     private static final String SEPARATOR = " ";
     private static final String START_GAME_MESSAGE = "Start Game";
@@ -24,6 +31,7 @@ public class Game {
     private int getNumberOfCorrectNumber(int[] guess) {
         int numberOfCorrectNumber = 0;
         for (int eachGuess : guess) {
+
             for (int eachAnswer : this.answer) {
                 numberOfCorrectNumber += eachGuess == eachAnswer ? 1 : 0;
             }
@@ -51,21 +59,24 @@ public class Game {
     }
 
     public void startGame() {
-        String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
-        boolean isVictory = false;
         gameIO.displayResultToConsole(START_GAME_MESSAGE);
-        while (!isVictory && !gameProcess.isGameOver()) {
+        String result = null;
+        while (!isVictory(result) && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = gameInputFormatter.validateAndConvertIntegerArray(inputFromConsole);
-                String result = this.checkResult(guess);
+                result = this.checkResult(guess);
                 gameIO.displayResultToConsole(result);
-                isVictory = result.equals(victoryResult);
             } catch (InvalidInputException e) {
                 gameIO.displayResultToConsole(e.getMessage());
             }
             gameProcess.nextRound();
         }
         gameIO.displayResultToConsole(END_GAME_MESSAGE);
+    }
+
+    private boolean isVictory(String actualResult) {
+        String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
+        return victoryResult.equals(actualResult);
     }
 }
