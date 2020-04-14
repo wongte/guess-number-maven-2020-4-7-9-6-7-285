@@ -1,6 +1,7 @@
 package com.oocl;
 
 public class GameResultChecker {
+    public static final String DISPLAY_FORMAT = "%dA%dB";
     int[] answer;
 
     public GameResultChecker(int[] answer) {
@@ -26,19 +27,18 @@ public class GameResultChecker {
         return numberOfCorrectPosition;
     }
 
-    private String generateResultOutput(int numberOfCorrectNumber, int numberOfCorrectPosition) {
-        int b = numberOfCorrectNumber - numberOfCorrectPosition;
-        return String.format("%dA%dB", numberOfCorrectPosition, b);
+    private String getDisplayResult(int valueOfA, int valueOfB) {
+        return String.format(DISPLAY_FORMAT, valueOfA, valueOfB);
     }
 
     public String checkResult(int[] guess) {
         int numberOfCorrectNumber = this.getNumberOfCorrectNumber(guess);
         int numberOfCorrectPosition = this.getNumberOfCorrectPosition(guess);
-        return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
+        return this.getDisplayResult(numberOfCorrectNumber, numberOfCorrectPosition - numberOfCorrectNumber);
     }
 
     public boolean isVictory(String actualResult) {
-        String victoryResult = String.format("%dA0B", answer.length);
+        String victoryResult = getDisplayResult(answer.length, 0);
         return victoryResult.equals(actualResult);
     }
 }
