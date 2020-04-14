@@ -53,13 +53,13 @@ public class Game {
 
     public void startGame() {
         gameIO.displayResultToConsole(START_GAME_MESSAGE);
-        String result = null;
-        while (!isVictory(result) && !gameProcess.isGameOver()) {
+        String lastRoundResult = null;
+        while (!isVictory(lastRoundResult) && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = gameInputFormatter.convert(inputFromConsole);
-                result = this.checkResult(guess);
-                gameIO.displayResultToConsole(result);
+                lastRoundResult = this.checkResult(guess);
+                gameIO.displayResultToConsole(lastRoundResult);
             } catch (InvalidInputException e) {
                 gameIO.displayResultToConsole(e.getMessage());
             }
