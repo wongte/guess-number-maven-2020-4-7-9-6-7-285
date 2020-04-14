@@ -1,12 +1,5 @@
 package com.oocl;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 public class Game {
     private static final String SEPARATOR = " ";
     private static final String START_GAME_MESSAGE = "Start Game";
@@ -64,7 +57,7 @@ public class Game {
         while (!isVictory(result) && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
-                int[] guess = gameInputFormatter.validateAndConvertIntegerArray(inputFromConsole);
+                int[] guess = gameInputFormatter.convert(inputFromConsole);
                 result = this.checkResult(guess);
                 gameIO.displayResultToConsole(result);
             } catch (InvalidInputException e) {

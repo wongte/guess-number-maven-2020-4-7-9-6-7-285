@@ -42,7 +42,7 @@ public class GameInputFormatter {
         }
     }
 
-    public int[] validateAndConvertIntegerArray(String rawInput) throws InvalidInputException {
+    public int[] convert(String rawInput) throws InvalidInputException {
         validateRawInputFormat(rawInput);
         int[] guess = convertToIntegerArray(rawInput);
         validateUniqueNumberInGuess(guess);
