@@ -1,5 +1,6 @@
 package com.oocl;
 
+import com.oocl.answer.RandomAnswerGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 

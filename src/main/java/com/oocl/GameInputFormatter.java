@@ -1,5 +1,7 @@
 package com.oocl;
 
+import com.oocl.exception.InvalidInputException;
+
 import java.util.Arrays;
 
 public class GameInputFormatter {

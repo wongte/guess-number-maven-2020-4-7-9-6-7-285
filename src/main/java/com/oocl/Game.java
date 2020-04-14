@@ -1,5 +1,9 @@
 package com.oocl;
 
+import com.oocl.answer.AnswerGenerator;
+import com.oocl.exception.InvalidInputException;
+import com.oocl.io.GameIO;
+
 public class Game {
     private static final String SEPARATOR = " ";
     private static final String START_GAME_MESSAGE = "Start Game";

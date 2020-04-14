@@ -1,5 +1,6 @@
 package com.oocl;
 
+import com.oocl.io.Console;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class ConsoleTest {
         InputStream inputStream = new ByteArrayInputStream(expected.getBytes());
         System.setIn(inputStream);
 
-        Console console = new Console();
+        com.oocl.io.Console console = new com.oocl.io.Console();
         String actualResult = console.readInputFromConsole();
 
         Assert.assertEquals(expected, actualResult);
@@ -25,7 +26,7 @@ public class ConsoleTest {
         PrintStream printStream = new PrintStream(outputStream);
         System.setOut(printStream);
 
-        Console console = new Console();
+        com.oocl.io.Console console = new Console();
         console.displayResultToConsole(expected);
         Assert.assertEquals(expected + "\r\n", outputStream.toString());
     }

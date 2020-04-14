@@ -1,5 +1,8 @@
 package com.oocl;
 
+import com.oocl.answer.AnswerGenerator;
+import com.oocl.answer.RandomAnswerGenerator;
+import com.oocl.io.Console;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
