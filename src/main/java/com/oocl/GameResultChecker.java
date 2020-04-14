@@ -34,7 +34,7 @@ public class GameResultChecker {
     public String checkResult(int[] guess) {
         int numberOfCorrectNumber = this.getNumberOfCorrectNumber(guess);
         int numberOfCorrectPosition = this.getNumberOfCorrectPosition(guess);
-        return this.getDisplayResult(numberOfCorrectNumber, numberOfCorrectPosition - numberOfCorrectNumber);
+        return this.getDisplayResult(numberOfCorrectPosition, numberOfCorrectNumber - numberOfCorrectPosition);
     }
 
     public boolean isVictory(String actualResult) {
