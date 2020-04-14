@@ -36,4 +36,9 @@ public class GameResultChecker {
         int numberOfCorrectPosition = this.getNumberOfCorrectPosition(guess);
         return this.generateResultOutput(numberOfCorrectNumber, numberOfCorrectPosition);
     }
+
+    public boolean isVictory(String actualResult) {
+        String victoryResult = String.format("%dA0B", answer.length);
+        return victoryResult.equals(actualResult);
+    }
 }

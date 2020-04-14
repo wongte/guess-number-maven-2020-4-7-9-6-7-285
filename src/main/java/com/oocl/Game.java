@@ -28,7 +28,7 @@ public class Game {
     public void startGame() {
         gameIO.displayResultToConsole(START_GAME_MESSAGE);
         String lastRoundResult = null;
-        while (!isVictory(lastRoundResult) && !gameProcess.isGameOver()) {
+        while (!gameResultChecker.isVictory(lastRoundResult) && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
                 int[] guess = gameInputFormatter.convert(inputFromConsole);
@@ -40,10 +40,5 @@ public class Game {
             gameProcess.nextRound();
         }
         gameIO.displayResultToConsole(END_GAME_MESSAGE);
-    }
-
-    private boolean isVictory(String actualResult) {
-        String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
-        return victoryResult.equals(actualResult);
     }
 }
