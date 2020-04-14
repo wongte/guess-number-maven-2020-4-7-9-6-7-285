@@ -2,6 +2,9 @@ package com.oocl;
 
 public class Game {
     private static final String SEPARATOR = " ";
+    private static final String START_GAME_MESSAGE = "Start Game";
+    private static final String END_GAME_MESSAGE = "End Game";
+
     public static final int NUMBER_OF_TOTAL_ROUND = 6;
     public static final int LENGTH_OF_GAME = 4;
     public static final int UPPER_BOUND_OF_INPUT_NUMBER = 9; // User can only input [0, UPPER_BOUND_OF_INPUT_NUMBER]
@@ -50,7 +53,7 @@ public class Game {
     public void startGame() {
         String victoryResult = String.format("%dA0B", LENGTH_OF_GAME);
         boolean isVictory = false;
-        gameIO.displayResultToConsole("Start Game");
+        gameIO.displayResultToConsole(START_GAME_MESSAGE);
         while (!isVictory && !gameProcess.isGameOver()) {
             String inputFromConsole = gameIO.readInputFromConsole();
             try {
@@ -63,6 +66,6 @@ public class Game {
             }
             gameProcess.nextRound();
         }
-        gameIO.displayResultToConsole("End Game");
+        gameIO.displayResultToConsole(END_GAME_MESSAGE);
     }
 }
