@@ -5,6 +5,7 @@ import com.oocl.exception.InvalidInputException;
 import java.util.Arrays;
 
 public class GameInputFormatter {
+    private static final String DIGIT_AND_SPACE_PATTERN = "[\\d\\s]+";
     private String separator;
     private int lengthOfGame, upperBoundOfInputNumber;
 
@@ -15,7 +16,7 @@ public class GameInputFormatter {
     }
 
     private void validateRawInputFormat(String rawInput) throws InvalidInputException {
-        if (!rawInput.matches("[\\d\\s]+")) {
+        if (!rawInput.matches(DIGIT_AND_SPACE_PATTERN)) {
             throw new InvalidInputException();
         }
         if (rawInput.split(separator).length != lengthOfGame) {

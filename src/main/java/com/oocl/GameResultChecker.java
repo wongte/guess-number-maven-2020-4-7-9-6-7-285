@@ -2,7 +2,7 @@ package com.oocl;
 
 public class GameResultChecker {
     public static final String DISPLAY_FORMAT = "%dA%dB";
-    int[] answer;
+    private int[] answer;
 
     public GameResultChecker(int[] answer) {
         this.answer = answer;
